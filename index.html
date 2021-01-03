@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>testTAG</title>
+	<meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@1,800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="ttStyle.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		var newVar = 
+			`<div class="newVar varContainer">
+				<input type="text" class="varName" name="varName" placeholder="New Variation">
+				<div class="right">
+					<button class = "delete" onclick="$(this).parent().parent().remove()">Delete</button>
+					<button class="add" onclick="$(this).parent().parent().after(newVar)">Add Variation</button>
+				</div>
+				<form>
+					<textarea name="control" placeholder="Enter JS here..."></textarea>
+				</form>
+			</div>`;
+	</script>
+	<div class="container">
+		<div class="row">
+			<div class="headerWrapper col-md-12">
+				<h1>test<span class="outLined">TAG</span></h1>
+				<div>
+					<p>testTAG provides users with a single script that can be placed within a tag management system to run A/B/n tests.</p>
+					<p id="seeMore" style="display:none">To use testTag, simply enter the test name and name & JS* for each variation. Once your done, click <strong>Get My Script</strong> to generate a single script that can be placed in your tag management system. Visitor assignment logic and tracking will be added automatically.<br><br>*Note: When using testTAG, don't include script tags and alwaya use <strong>/*...*/</strong> for comments, as script will be minified.</p>
+					<a href="#" id="less" style="display: none" onclick="$('#seeMore, #less').hide(); $('#more').show()">See less...</a>
+					<a href="#" id="more" onclick="$('#seeMore, #less').show(); $('#more').hide()">See more...</a>					
+				</div>				
+			</div>
+		</div>		
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="inPut col-md-6">
+				<h2>Test Setup</h2>		
+				<input type="text" name="title" placeholder="Test Name" id="testName">
+				<div class="varContainer">
+					<input type="text" class="varName" name="varName" placeholder="Control" value="Control" disabled>
+					<button class="add right" onclick="$(this).parent().after(newVar)">Add Variation</button>
+					<form>
+						<textarea id="control" name="control" placeholder="Enter JS here..."></textarea>
+					</form>
+				</div>
+				<div>
+					<button id="submit">Get My Script</button>
+				</div>
+			</div>
+			<div class="outPut col-md-6">
+				<h2>Your Script</h2>
+				<form>
+					<textarea id="results" name="results"></textarea>
+				</form>
+				<div>
+					<button id="copy" onclick="copyTxt();">Copy To Clipboard</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container" id="footer">
+		<div class="row">
+			<div class="col-md-12 own">
+				<p>&#169; 2021 Ryan DuPont. All Rights Reserved.</p>				
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$('#submit').click(function() { //start turn inputs into functions and concat
+			const tId = Math.random().toFixed(5)*100000;
+			var tName = $('#testName').val();
+			var vNum = $('.varContainer').length;
+			var fs = `function getCookie(name) {var value = "; " + document.cookie; var parts = value.split("; " + name + "="); if (parts.length == 2) return parts.pop().split(";").shift();}; function assignVisitor() { var j; var a = Math.random().toFixed(3)*100;var max = ${vNum}; for (j = 0; j < max; j++) {if (a < ((100 / max) * (j + 1)) && a > ((100 / max) * (j))) {document.cookie='TT${tId}='+j+';max-age=7776000';}}}; if (!getCookie('TT${tId}')) {assignVisitor()};`;
+
+			var i;
+			for (i = 0; i < vNum; i++) {
+				var vName = $('.varContainer:eq('+i+') .varName').val();
+				var c = $('.varContainer:eq('+i+') textarea').val();
+				if (i < 1 ) {var c2 = `function var${i}() {targetTrackingVariationName="${tName}:Control", _satellite.track("targetTrackingEvent"); ${c}}; `;}
+				else {var c2 = c2 + `function var${i}() {targetTrackingVariationName="${tName}:${vName}", _satellite.track("targetTrackingEvent"); ${c}}; `;};
+			}
+
+			var k;
+			for (k=0; k < $('.varContainer').length; k++) {
+				if (k < 1) {
+					var ts = `if (getCookie('TT${tId}') === '${k}') {var${k}()}; `;
+				} else {
+					var ts = ts + `if (getCookie('TT${tId}') === '${k}') {var${k}()}; `;
+				};
+			}
+
+			$('#results').val(`${c2} ${fs} ${ts}`);
+		});
+	</script>
+	<script type="text/javascript">
+		function copyTxt() {
+		  var copyText = document.getElementById("results");
+		  copyText.select();
+		  copyText.setSelectionRange(0, 999999999999999999999);
+		  document.execCommand("copy");
+		  alert("Script copied to clipboard!");
+		};
+	</script>
+</body>
+</html>

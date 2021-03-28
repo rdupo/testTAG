@@ -32,10 +32,6 @@ h2 {
 	color: #fffafa;
 }
 
-.add {
-	stroke: #00ff00;
-}
-
 .bdr-right {
 	border-right: 1px solid #2f2f2f;
 	border-bottom: none;
@@ -143,10 +139,6 @@ h2 {
 	padding-bottom: 8px;
 }
 
-.remove {
-	stroke: #ff0000;
-}
-
 .right {
 	float: right;
 }
@@ -184,6 +176,14 @@ h2 {
 	border: none;
 	margin: -2px -2px 0 16px;
 	cursor: pointer;
+}
+
+.add {
+	stroke: #00ff00;
+}
+
+.remove {
+	stroke: #ff0000;
 }
 
 .tooltips {

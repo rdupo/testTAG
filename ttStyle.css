@@ -32,15 +32,6 @@ h2 {
 	color: #fffafa;
 }
 
-a {
-	color: #1e90ff;
-}
-
-a:hover {
-	color: #1e90ff;
-	text-decoration: none;
-}
-
 .svg-btn.add {
 	stroke: #00ff00;
 }
@@ -211,6 +202,15 @@ a:hover {
 
 .varName, #testName {
 	width: 50%;
+}
+
+#more, #less {
+	color: #1e90ff;
+}
+
+#more:hover, #less:hover {
+	color: #1e90ff;
+	text-decoration: none;
 }
 
 #footer {

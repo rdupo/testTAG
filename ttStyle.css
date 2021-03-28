@@ -32,6 +32,19 @@ h2 {
 	color: #fffafa;
 }
 
+a {
+	color: #1e90ff;
+}
+
+a:hover {
+	color: #1e90ff;
+	text-decoration: none;
+}
+
+.svg-btn.add {
+	stroke: #00ff00;
+}
+
 .bdr-right {
 	border-right: 1px solid #2f2f2f;
 	border-bottom: none;
@@ -78,7 +91,7 @@ h2 {
 	padding: 0;
 }
 
-.info {
+.svg-btn.info {
 	width: 20px;
 	margin: 0 5px;
 }
@@ -139,6 +152,10 @@ h2 {
 	padding-bottom: 8px;
 }
 
+.svg-btn.remove {
+	stroke: #ff0000;
+}
+
 .right {
 	float: right;
 }
@@ -176,14 +193,6 @@ h2 {
 	border: none;
 	margin: -2px -2px 0 16px;
 	cursor: pointer;
-}
-
-.add {
-	stroke: #00ff00;
-}
-
-.remove {
-	stroke: #ff0000;
 }
 
 .tooltips {

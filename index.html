@@ -14,52 +14,150 @@
 	<script type="text/javascript">
 		var newVar = 
 			`<div class="newVar varContainer">
-				<input type="text" class="varName" name="varName" placeholder="New Variation">
-				<div class="right">
-					<button class = "delete" onclick="$(this).parent().parent().remove()">Delete</button>
-					<button class="add" onclick="$(this).parent().parent().after(newVar)">Add Variation</button>
+				<div class="row ml-0 mr-0">
+					<div class="varNameWrapper">
+						<label for="varName">Variation</label>
+						<div class="btn-wrap inline">
+							<svg class="svg-btn info one-px-left" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx="50" cy="50" r="40"></circle><line x1="50" y1="32" x2="50" y2="32"></line><line x1="50" y1="68" x2="50" y2="48"></line></svg>
+							<span class="tooltips">Name of the variation as you want it sent to Adobe Analytics. 50 character limit.</span>
+						</div>
+					</div>
+					<input type="text" class="varName" name="varName" maxlength="50">
+					<div class="ml-auto">
+						<svg class="svg-btn right add" onclick="$(this).parent().parent().parent().after(newVar)" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><title>Add variation</title><circle cx="50" cy="50" r="40"/><line x1="35" y1="50" x2="65" y2="50" /><line x1="50" y1="35" x2="50" y2="65" /></svg>
+						<svg class = "svg-btn right remove" onclick="$(this).parent().parent().parent().remove()" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><title>Delete variation</title><circle cx="50" cy="50" r="40"/> <line x1="35" y1="50" x2="65" y2="50" /></svg>
+					</div>
 				</div>
-				<form>
-					<textarea name="control" placeholder="Enter JS here..."></textarea>
-				</form>
+				<div class="row ml-0 mr-0">
+					<label for="js">Variation JS</label>
+					<div class="btn-wrap">
+						<svg class="svg-btn info" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx="50" cy="50" r="40"></circle><line x1="50" y1="32" x2="50" y2="32"></line><line x1="50" y1="68" x2="50" y2="48"></line></svg>
+						<span class="tooltips">JS to create new experience. <strong>DO NOT</strong> wrap your JS in script tags!</span>
+					</div>
+					<form class="col-md-12 no-pad"><textarea name="js" placeholder="Enter JS here..."></textarea></form>
+				</div>
 			</div>`;
 	</script>
 	<div class="container">
 		<div class="row">
-			<div class="headerWrapper col-md-12">
-				<h1>test<span class="outLined">TAG</span></h1>
-				<div>
-					<p>testTAG provides users with a single script that can be placed within a tag management system to run A/B/n tests.</p>
-					<p id="seeMore" style="display:none">To use testTag, simply enter the test name and name & JS* for each variation. Once your done, click <strong>Get My Script</strong> to generate a single script that can be placed in your tag management system. Visitor assignment logic and tracking will be added automatically.<br><br>*Note: When using testTAG, <strong>don't include &lt;script&gt; tags</strong> and always <strong>use /*...*/ for comments</strong>, as script will be minified.</p>
-					<a href="#" id="less" style="display: none" onclick="$('#seeMore, #less').hide(); $('#more').show()">See less...</a>
-					<a href="#" id="more" onclick="$('#seeMore, #less').show(); $('#more').hide()">See more...</a>					
-				</div>				
+			<div class="pad-btm-8 col-md-12">
+				<h1>test<span class="outLined">TAG</span></h1>		
 			</div>
 		</div>		
 	</div>
 	<div class="container">
 		<div class="row">
-			<div class="inPut col-md-6">
-				<h2>Test Setup</h2>		
-				<input type="text" name="title" placeholder="Test Name" id="testName">
-				<div class="varContainer">
-					<input type="text" class="varName" name="varName" placeholder="Control" value="Control" disabled>
-					<button class="add right" onclick="$(this).parent().after(newVar)">Add Variation</button>
-					<form>
-						<textarea id="control" name="control" placeholder="Enter JS here..."></textarea>
-					</form>
+			<div class="col-md-3 bdr-right">
+				<h2>About</h2>
+				<p>testTAG generates a single script that can be added to your site via Adobe Launch to run basic A/B/n tests.</p>
+				<div id="seeMore" style="display:none">
+					<p>To use testTAG, enter all the required inputs like test name, analytics settings, and variation JS. Once your done, click <strong>Get My Script</strong> to generate a single script-including visitor assignment and tracking-that can be placed in Adobe Launch under a page load rule.</p>
 				</div>
-				<div>
-					<button id="submit">Get My Script</button>
-				</div>
+				<a href="#" id="less" style="display: none" onclick="$('#seeMore, #less').hide(); $('#more').show()">See less...</a>
+				<a href="#" id="more" onclick="$('#seeMore, #less').show(); $('#more').hide()">See more...</a>
 			</div>
-			<div class="outPut col-md-6">
-				<h2>Your Script</h2>
-				<form>
-					<textarea id="results" name="results"></textarea>
-				</form>
+			<div class="col-md-9 tool-wrapper">				
+				<h2>Test Script Generator</h2>		
 				<div>
-					<button id="copy" onclick="copyTxt();">Copy To Clipboard</button>
+					<div class="section-header">
+						<svg class="carrot rotate-me setup" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polyline fill="none" points="30,10 80,50 30,90 "/></svg>
+						<div>Test Setup: General</div>
+					</div>
+					<div class="inPut">
+						<div class="row ml-0 mr-0">
+							<label for="title">Test Name</label>
+							<div class="btn-wrap">
+								<svg class="svg-btn info" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx="50" cy="50" r="40"></circle><line x1="50" y1="32" x2="50" y2="32"></line><line x1="50" y1="68" x2="50" y2="48"></line></svg>
+								<span class="tooltips">Name of your test as you want it sent to Adobe Analytics. 50 character limit.</span>
+							</div>
+							<input type="text" name="title" id="testName" maxlength="50">
+						</div>
+						<div class="row ml-0 mr-0">
+							<label for="evar">Adobe Analytics Setup</label>
+								<div class="btn-wrap">									
+									<svg class="svg-btn info" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx="50" cy="50" r="40"></circle><line x1="50" y1="32" x2="50" y2="32"></line><line x1="50" y1="68" x2="50" y2="48"></line></svg>
+									<span class="tooltips">eVar you want test assignment data sent to. Note that the selected eVar will need to be configured by an Adobe Analytics Admin in order for data to show up in reporting. Assignment data sent as a string, formatted [Test Name]:[Variation Name].</span>
+								</div>
+							<select id="evar"></select>
+							<script type="text/javascript">
+								for(var i=1; i<=250; i++){
+								    var select = document.getElementById("evar");
+								    var option = document.createElement("OPTION");
+									select.options.add(option);
+									option.text = "eVar"+i;
+									option.value = "eVar"+i;
+								}
+							</script>
+						</div>
+						<div class="row ml-0 mr-0">
+							<label for="TTID"><input type="checkbox" id="TTID" name="TTID" value="TTID" onclick="if ($('#TID').attr('disabled')) {$('#TID').removeAttr('disabled')} else {$('#TID').attr('disabled',true)}" class="margin-5-right">Enable ttID</label>
+							<div class="btn-wrap">
+								<svg class="svg-btn info" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx="50" cy="50" r="40"></circle><line x1="50" y1="32" x2="50" y2="32"></line><line x1="50" y1="68" x2="50" y2="48"></line></svg>
+								<span class="tooltips">ttID is a unique, alphanumeric ID assigned to each visitor that you can opt to send to Adobe Analytics, but isn't required. Note that if enabled, the selected eVar will need to be configured by an Adobe Analytics Admin in order for data to show up in reporting.</span>
+							</div>
+							<select id="TID" disabled="true"></select>
+							<script type="text/javascript">
+								for(var p=1; p<=250; p++){
+								    var ttselect = document.getElementById("TID");
+								    var ttoption = document.createElement("OPTION");
+									ttselect.options.add(ttoption);
+									ttoption.text = "eVar"+p;
+									ttoption.value = "eVar"+p;
+								}
+							</script>
+						</div>
+						<div class="row ml-0 mr-0">
+							<label for="globalTrack"><input type="checkbox" id="globalTrack" name="globalTrack" value="globalTrack" onclick="$('.gtjs').toggle()" class="margin-5-right">Enable Global Tracking</label>
+							<div class="btn-wrap">
+								<svg class="svg-btn info" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx="50" cy="50" r="40"></circle><line x1="50" y1="32" x2="50" y2="32"></line><line x1="50" y1="68" x2="50" y2="48"></line></svg>
+								<span class="tooltips">Global Tracking is an optional section where you can add any additional tracking needed across control and treatment variations. If tracking needed is specific to each variation, it should be included within the variation JS. <strong>DO NOT</strong> wrap your JS in script tags!</span>
+							</div>
+							<form class="col-md-12 gtjs"><textarea id="gtJS" name="gtJS" placeholder="Enter JS here..."></textarea></form>							
+						</div>
+					</div>
+					<div class="section-header">
+						<svg class="carrot rotate-me setup" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polyline fill="none" points="30,10 80,50 30,90 "/></svg>
+						<div>Test Setup: Variations</div>
+					</div>
+					<div class="inPut">	
+						<div class="varContainer">
+							<div class="row ml-0 mr-0">								
+								<div class="varNameWrapper">
+									<label for="varName">Variation</label>
+									<div class="btn-wrap inline">
+										<svg class="svg-btn info one-px-left" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx="50" cy="50" r="40"></circle><line x1="50" y1="32" x2="50" y2="32"></line><line x1="50" y1="68" x2="50" y2="48"></line></svg>
+										<span class="tooltips">Variation name sent to Adobe Analytics for tracking. For Control, this is automatically set and cannot be updated.</span>
+									</div>
+								</div>
+								<input type="text" class="varName" name="varName" placeholder="Control" disabled="true" maxlength="50">								
+								<svg class="svg-btn ml-auto add" onclick="$(this).parent().parent().after(newVar)" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>3<title>Add variation</title><circle cx="50" cy="50" r="40"/><line x1="35" y1="50" x2="65" y2="50" /><line x1="50" y1="35" x2="50" y2="65" /></svg>
+							</div>
+							<div class="row ml-0 mr-0">
+								<label for="control">Control JS</label>
+								<div class="btn-wrap">
+									<svg class="svg-btn info" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx="50" cy="50" r="40"></circle><line x1="50" y1="32" x2="50" y2="32"></line><line x1="50" y1="68" x2="50" y2="48"></line></svg>
+									<span class="tooltips">This is optional for control, and should only be used to add tracking that isn't appropriate for the Global Tracking feature. <strong>DO NOT</strong> wrap your JS in script tags!</span>
+								</div>
+								<form class="col-md-12 no-pad"><textarea id="control" name="control" placeholder="Enter JS here..."></textarea>
+								</form>
+							</div>
+						</div>
+						<div>
+							<a href="#copy" onclick="if($('.carrot.get-script').hasClass('rotate-me') === false){$('.get-script').click();}"><button id="submit" class="btn">Get My Script</button></a>
+						</div>
+					</div>
+				</div>
+				<div class="section-header">
+					<svg class="carrot get-script" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polyline fill="none" points="30,10 80,50 30,90 "/></svg>
+					<div>Your Script</div>
+				</div>
+				<div class="outPut">
+					<form>
+						<textarea id="results" name="results"></textarea>
+					</form>
+					<div>
+						<button class="btn" id="copy" onclick="copyTxt();">Copy To Clipboard</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -73,17 +171,36 @@
 	</div>
 	<script type="text/javascript">
 		$('#submit').click(function() { //start turn inputs into functions and concat
-			const tId = Math.random().toFixed(5)*100000;
+			const tId1 = Math.random().toFixed(5)*100000;
+			const tId = parseInt(tId1);
+			if (document.getElementById('globalTrack').checked) {
+				var gTrack = $('#gtJS').val();
+				if (gTrack.slice(-1) != ';') {
+					var gTrack = gTrack+';';
+				};				
+			} else {var gTrack = '';};
+			var sendTo = $('#evar').val();
+			if (document.getElementById('TTID').checked) {
+				var sendToId = $('#TID').val();
+				var trackjs = `var y = new Object(); y.${sendTo} = "<value>"; y.${sendToId} = getCookie('ttId'); y.linkTrackVars = "${sendTo},${sendToId}"; s.tl(true,"o","A/B/n Test Qualified",y);`;
+			} else {
+				var trackjs = `var y = new Object(); y.${sendTo} = "<value>"; y.linkTrackVars = "${sendTo}"; s.tl(true,"o","A/B/n Test Qualified",y);`;
+			};
 			var tName = $('#testName').val();
 			var vNum = $('.varContainer').length;
-			var fs = `function getCookie(name) {var value = "; " + document.cookie; var parts = value.split("; " + name + "="); if (parts.length == 2) return parts.pop().split(";").shift();}; function assignVisitor() { var j; var a = Math.random().toFixed(3)*100;var max = ${vNum}; for (j = 0; j < max; j++) {if (a < ((100 / max) * (j + 1)) && a > ((100 / max) * (j))) {document.cookie='TT${tId}='+j+';max-age=7776000';}}}; if (!getCookie('TT${tId}')) {assignVisitor()};`;
-
+			var fs = `function getCookie(name) {var value = "; " + document.cookie; var parts = value.split("; " + name + "="); if (parts.length == 2) return parts.pop().split(";").shift();};function setId() {var nu = Math.random().toString().substring(2,12); var al = Math.random().toString(36).replace(/[^a-z]+/g, '');var uId = al.slice(-1)+nu+al.substr(0,1); document.cookie='ttId='+uId+';max-age=7776000';};function assignVisitor() { var j; var a = Math.random().toFixed(3)*100;var max = ${vNum}; for (j = 0; j < max; j++) {if (a < ((100 / max) * (j + 1)) && a > ((100 / max) * (j))) {document.cookie='TT${tId}='+j+';max-age=7776000';}}}; if (!getCookie('ttId')) {setId()}; if (!getCookie('TT${tId}')) {assignVisitor()};`;
+			
 			var i;
 			for (i = 0; i < vNum; i++) {
 				var vName = $('.varContainer:eq('+i+') .varName').val();
 				var c = $('.varContainer:eq('+i+') textarea').val();
-				if (i < 1 ) {var c2 = `function var${i}() {targetTrackingVariationName="${tName}:Control", _satellite.track("targetTrackingEvent"); ${c}}; `;}
-				else {var c2 = c2 + `function var${i}() {targetTrackingVariationName="${tName}:${vName}", _satellite.track("targetTrackingEvent"); ${c}}; `;};
+				if (i < 1 ) {
+					var tjs = trackjs.replace('<value>',`${tName}:Control`);
+					var c2 = `function var${i}() {${tjs}${gTrack}${c}};`;
+				} else {
+					var tjs = trackjs.replace('<value>',`${tName}:${vName}`);
+					var c2 = c2 + `function var${i}() {${tjs}${gTrack}${c}};`;
+				};
 			}
 
 			var k;
@@ -95,7 +212,7 @@
 				};
 			}
 
-			$('#results').val(`${c2} ${fs} ${ts}`);
+			$('#results').val(`${c2}${fs}${ts}`);
 		});
 	</script>
 	<script type="text/javascript">
@@ -106,6 +223,11 @@
 		  document.execCommand("copy");
 		  alert("Script copied to clipboard!");
 		};
+
+		$('.section-header div, .carrot').click(function() { 
+			$(this).parent().next().toggle();
+			$(this).parent().find('.carrot').toggleClass('rotate-me');
+		});
 	</script>
 </body>
 </html>
